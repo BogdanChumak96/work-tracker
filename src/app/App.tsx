@@ -1,7 +1,10 @@
+import {Router} from "./providers/router/router.tsx";
 
 export const App=()=> {
     return (
-        <div className={`flex justify-center text-2xl `} >hello word</div>
+        <>
+            <Router/>
+        </>
     )
 }
 
