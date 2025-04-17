@@ -1,7 +1,7 @@
 import React from "react"
 import { BrowserRouter, Routes, Route } from "react-router-dom"
-import {ProtectedRoute} from "../../../shared/lib/router/protected-route.tsx";
-import {ROUTES} from "../../../shared/lib/constants/routes.ts";
+import {ProtectedRoute} from "../../shared/lib/router/protected-route.tsx";
+import {ROUTES} from "../../shared/lib/constants/routes.ts";
 
 
 export const Router: React.FC = () => {

@@ -8,7 +8,7 @@ interface Props {
 }
 
 export const ProtectedRoute=({children}:Props)=>{
-    const isAuthenticated:boolean=false //временая заглушка
+    const isAuthenticated:boolean=false
     const location = useLocation();
 
     if (!isAuthenticated) {
