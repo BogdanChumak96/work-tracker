@@ -1,8 +1,7 @@
+import { Router } from "./router"
 
-export const App=()=> {
-    return (
-        <div className={`flex justify-center text-2xl `} >hello word</div>
-    )
+export const App = () => {
+    return <Router />
 }
 
 
