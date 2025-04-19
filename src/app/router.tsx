@@ -5,7 +5,7 @@ export const Router: React.FC = () => {
     return (
         <BrowserRouter>
             <Routes>
-                <Route path="/" element={<div>MAIN PAGE</div>} />
+                <Route path="/" element={<div className="text-green-500 text-9xl">MAIN PAGE</div>} />
                 <Route path="/about-us" element={<div>ABOUT US PAGE</div>} />
             </Routes>
         </BrowserRouter>
