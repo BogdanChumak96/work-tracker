@@ -1,9 +1,5 @@
-import {Router} from "./providers/router.tsx";
+import { Router } from "./router"
 
-export const App=()=> {
-    return (
-            <Router/>
-    )
+export const App = () => {
+    return <Router />
 }
-
-

@@ -4,8 +4,8 @@ import tailwindcss from '@tailwindcss/vite'
 
 export default defineConfig({
   plugins: [
-      react(),
-      tailwindcss(),
+    react(),
+    tailwindcss(),
   ],
-  root:"./src/app"
+  root: "./src/app"
 })
