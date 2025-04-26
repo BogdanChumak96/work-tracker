@@ -1,0 +1,15 @@
+{
+    "eslint.options": {
+      "overrideConfigFile": ".eslintrc.js"
+    },
+    "eslint.validate": [
+      "javascript",
+      "typescript",
+      "typescriptreact"
+    ],
+    "eslint.nodePath": "./node_modules",
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    },
+    "editor.formatOnSave": false
+  }
