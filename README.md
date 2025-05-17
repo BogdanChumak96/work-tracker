@@ -1,5 +1,5 @@
 // branch rule
-// create-widgets-dir
+// create-features-login
 
 // commit rule
 // feat-add-widget-dir
