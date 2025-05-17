@@ -4,7 +4,6 @@ module.exports = {
     plugins: ["boundaries"],
     extends: ["plugin:boundaries/recommended"],
     rules: {
-        "no-console": "error",
       "boundaries/element-types": [
         "error",
         {

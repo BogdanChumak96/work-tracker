@@ -1,7 +1,7 @@
 import { Navigate, useLocation } from "react-router-dom";
 
 import { ReactNode } from "react";
-import {ROUTES} from "../constants/routes.ts";
+import {ROUTES} from "../constants/routes";
 
 interface Props {
     children: ReactNode;
