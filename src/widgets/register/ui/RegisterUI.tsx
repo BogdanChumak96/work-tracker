@@ -3,7 +3,11 @@ import { useForm } from 'react-hook-form';
 import { useNavigate } from 'react-router-dom';
 import { FaEye, FaEyeSlash } from 'react-icons/fa';
 import { registerUser, sendEmail } from '@/shared/api';
-import { Button } from '@/shared/ui';
+import { Button, Input } from '@/shared/ui';
+import { Link } from '@/shared/ui/link';
+import { ErrorLabel } from '@/shared/ui/error-label';
+import { Title } from '@/shared/ui/title';
+import { Subtitle } from '@/shared/ui/subtitle';
 
 export interface IRegister {
     name: string;
@@ -44,37 +48,34 @@ export const RegisterUI = () => {
             ) : ( */}
             <form onSubmit={handleSubmit(handleRegister)} className="w-1/2 h-3/4 flex flex-col justify-center items-center p-10 gap-5 rounded-lg">
                 <div className="flex flex-col items-start gap-2 mb-8">
-                    <h1 className="text-4xl text-black">Register your Account</h1>
-                    <p className="text-gray-500">Welcome! Choose register method</p>
+                    <Title className="text-4xl text-black" title={"Register your Account"} />
+                    <Subtitle className="text-gray-500" title={'Welcome! Choose register method'} />
                 </div>
-
-                {/* <LogButtons /> */}
-
                 <div className="w-[410px]">
-                    <input
+                    <Input
                         {...register("email", { required: "Email is required" })}
                         className={`w-full p-3 border rounded-md font-bold ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
                         placeholder="Email"
                     />
                     {errors.email && (
-                        <p className="text-red-500 text-sm mt-1">{errors.email.message}</p>
+                        <ErrorLabel className="text-red-500 text-sm mt-1" label={errors.email.message} />
                     )}
                 </div>
 
                 <div className="w-[410px]">
-                    <input
+                    <Input
                         {...register("name", { required: "Name is required" })}
                         className={`w-full p-3 border rounded-md font-bold ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
                         placeholder="Name"
                     />
                     {errors.name && (
-                        <p className="text-red-500 text-sm mt-1">{errors.name.message}</p>
+                        <ErrorLabel className="text-red-500 text-sm mt-1" label={errors.name.message} />
                     )}
                 </div>
 
                 <div className="w-[410px]">
                     <div className="relative">
-                        <input
+                        <Input
                             {...register("password", {
                                 required: "Password is required",
                                 minLength: {
@@ -86,27 +87,23 @@ export const RegisterUI = () => {
                             className={`w-full p-3 border rounded-md bg-blue-50 font-bold ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
                             placeholder="Password"
                         />
-                        <button
-                            type="button"
+                        <Button
                             onClick={handleClickShowPassword}
                             className="absolute right-3 top-3 text-gray-500"
-                        >
-                            {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-                        </button>
+                            title={showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                        />
                     </div>
                     {errors.password && (
-                        <p className="text-red-500 text-sm mt-1">{errors.password.message}</p>
+                        <ErrorLabel className="text-red-500 text-sm mt-1" label={errors.password.message || ''} />
                     )}
                 </div>
 
                 <div className="flex justify-center items-center w-full">
-                    <a href="/login" className="text-blue-600 hover:text-blue-800 hover:underline">
-                        Already have an account?
-                    </a>
+                    <Link href="/login" title={"Already have an account?"} className="text-blue-600 hover:text-blue-800 hover:underline" />
                 </div>
 
                 <Button
-                    core={isLoading ? "Loading..." : "Register"}
+                    title={isLoading ? "Loading..." : "Register"}
                     onClick={() => { }}
                     className="w-[410px] h-[50px] font-bold bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                 />
