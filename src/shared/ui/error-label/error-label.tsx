@@ -1,7 +1,7 @@
 import React from 'react'
 
 interface IErrorLabel {
-    label: string | number,
+    label: string | number | React.ReactNode,
     className: string,
 }
 

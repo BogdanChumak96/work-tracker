@@ -7,6 +7,6 @@ interface ITitle {
 
 export const Title: React.FC<ITitle> = ({ title, className }) => {
     return (
-        <p className={className}>{title}</p>
+        <h1 className={className}>{title}</h1>
     )
 }

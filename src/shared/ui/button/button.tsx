@@ -1,5 +1,7 @@
+import { ReactNode } from "react"
+
 interface IButton {
-    title: string,
+    title: string | number | ReactNode,
     onClick?: () => void
     className?: string
 }

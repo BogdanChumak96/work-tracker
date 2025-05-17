@@ -1,6 +1,9 @@
 import { ReactNode, useEffect, useState } from "react";
-import { Button } from "@/shared/ui";
+import { Button, Input } from "@/shared/ui";
 import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
+import { Link } from "@/shared/ui/link";
+import { Title } from "@/shared/ui/title";
+import { ErrorLabel } from "@/shared/ui/error-label";
 
 interface IProps {
   placeholder: string;
@@ -72,7 +75,7 @@ const LoginUI = () => {
     }
     alert("Login successful");
   };
-  
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,19 +95,17 @@ const LoginUI = () => {
       <form onSubmit={handleSubmit}>
         <div className="bg-[#323232] w-full max-w-[28rem] p-8 rounded-lg flex flex-col items-center gap-6">
           <div className="text-white text-center">
-            <h5 className="text-xl font-medium mb-2">Welcome Back</h5>
+            <Title className="text-xl font-medium mb-2" title={"Welcome Back"} />
             <p>
               Don't have an account yet?{" "}
-              <a href="#" className="text-blue-400 hover:text-blue-300">
-                Sign up
-              </a>
+              <Link href="#" title={"Sign up"} className="text-blue-400 hover:text-blue-300" />
             </p>
           </div>
-          
+
           <div className="flex flex-col gap-4 w-full">
             {inputs.map((el) => (
               <div key={el.placeholder} className="relative">
-                <input
+                <Input
                   placeholder={el.placeholder}
                   type={el.field === "password" ? "password" : "text"}
                   value={
@@ -123,14 +124,12 @@ const LoginUI = () => {
                   {el.icon}
                 </div>
                 {errors[el.field as keyof typeof errors] && (
-                  <p className="text-red-500 text-sm mt-1">
-                    {errors[el.field as keyof typeof errors]}
-                  </p>
+                  <ErrorLabel className="text-red-500 text-sm mt-1" label={errors[el.field as keyof typeof errors]} />
                 )}
               </div>
             ))}
           </div>
-          
+
           <Button
             title="Login"
             className="bg-white text-[#323232] w-full py-3 rounded-md mt-4 hover:bg-gray-200 transition-colors"
