@@ -1,2 +1,1 @@
-import { RegisterUI } from "./ui/RegisterUI"
-export const Register = () => { return <RegisterUI /> }
+export {Register} from './register'

@@ -132,7 +132,7 @@ const LoginUI = () => {
           </div>
           
           <Button
-            core="Login"
+            title="Login"
             className="bg-white text-[#323232] w-full py-3 rounded-md mt-4 hover:bg-gray-200 transition-colors"
           />
         </div>

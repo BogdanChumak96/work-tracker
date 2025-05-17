@@ -106,7 +106,7 @@ export const RegisterUI = () => {
                 </div>
 
                 <Button
-                    core={isLoading ? "Loading..." : "Register"}
+                    title={isLoading ? "Loading..." : "Register"}
                     onClick={() => { }}
                     className="w-[410px] h-[50px] font-bold bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
                 />

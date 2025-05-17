@@ -1,9 +1,9 @@
 import axios from "axios";
 
-// const API_BASE_URL = process.env.NEXT_PUBLIC_API_URL || "https://dummyjson.com/todos/random";
+const API_BASE_URL = import.meta.env.VITE_PUBLIC_API_URL || "https://dummyjson.com/todos/random";
 
 const apiClient = axios.create({
-  // baseURL: API_BASE_URL,
+  baseURL: API_BASE_URL,
   headers: {
     "Content-Type": "application/json",
   },
@@ -33,10 +33,10 @@ apiClient.interceptors.response.use(
       originalRequest._retry = true;
 
       try {
-        // const refreshResponse = await axios.post<{ accessToken: string }>(`${API_BASE_URL}/auth/refresh`);
-        // localStorage.setItem("accessToken", refreshResponse.data.accessToken);
+        const refreshResponse = await axios.post<{ accessToken: string }>(`${API_BASE_URL}/auth/refresh`);
+        localStorage.setItem("accessToken", refreshResponse.data.accessToken);
 
-        // originalRequest.headers.Authorization = `Bearer ${refreshResponse.data.accessToken}`;
+        originalRequest.headers.Authorization = `Bearer ${refreshResponse.data.accessToken}`;
         return apiClient(originalRequest);
       } catch (refreshError) {
       }

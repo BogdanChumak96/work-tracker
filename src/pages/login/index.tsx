@@ -1,2 +1,1 @@
-import LoginUI from "./ui/LoginUI"
-export const Login = () => {return <LoginUI/>}
+export {Login} from './login'
