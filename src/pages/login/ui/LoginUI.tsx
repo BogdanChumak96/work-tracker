@@ -1,15 +1,6 @@
-import LockOutlinedIcon from "@mui/icons-material/LockOutlined";
-import LocalPostOfficeOutlinedIcon from "@mui/icons-material/LocalPostOfficeOutlined";
-import FolderSharedIcon from "@mui/icons-material/FolderShared";
-import {
-  Link,
-  Typography,
-  TextField,
-  Button,
-  InputAdornment,
-} from "@mui/material";
 import { ReactNode, useEffect, useState } from "react";
-import styles from "./LoginStyles.module.css";
+import { Button } from "@/shared/ui";
+import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 
 interface IProps {
   placeholder: string;
@@ -21,17 +12,17 @@ const LoginUI = () => {
   const inputs: IProps[] = [
     {
       placeholder: "Email Address",
-      icon: <LocalPostOfficeOutlinedIcon className="text-white" />,
+      icon: <FaEnvelope className="text-white" />,
       field: "email",
     },
     {
       placeholder: "Password",
-      icon: <LockOutlinedIcon className="text-white" />,
+      icon: <FaLock className="text-white" />,
       field: "password",
     },
     {
       placeholder: "Username",
-      icon: <FolderSharedIcon className="text-white" />,
+      icon: <FaUser className="text-white" />,
       field: "username",
     },
   ];
@@ -81,6 +72,7 @@ const LoginUI = () => {
     }
     alert("Login successful");
   };
+  
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -92,53 +84,57 @@ const LoginUI = () => {
       }
     };
     fetchData();
-  });
-
+    // Added dependency array to prevent infinite calls
+  }, []);
 
   return (
-    <div className={styles.wrapper}>
+    <div className="h-screen w-screen bg-[#101011] flex items-center justify-center p-4">
       <form onSubmit={handleSubmit}>
-        <div className={styles.formContainer}>
-          <div className={styles.heading}>
-            <Typography variant="h5">Welcome Back</Typography>
-            <Typography>
-              Don't have an account yet? <Link href="#">Sign up</Link>
-            </Typography>
+        <div className="bg-[#323232] w-full max-w-[28rem] p-8 rounded-lg flex flex-col items-center gap-6">
+          <div className="text-white text-center">
+            <h5 className="text-xl font-medium mb-2">Welcome Back</h5>
+            <p>
+              Don't have an account yet?{" "}
+              <a href="#" className="text-blue-400 hover:text-blue-300">
+                Sign up
+              </a>
+            </p>
           </div>
-          <div className={styles.fields}>
+          
+          <div className="flex flex-col gap-4 w-full">
             {inputs.map((el) => (
-              <TextField
-                key={el.placeholder}
-                placeholder={el.placeholder}
-                value={
-                  el.field === "email"
-                    ? email
-                    : el.field === "password"
-                      ? password
-                      : username
-                }
-                onChange={(e) => handleChange(el.field, e.target.value)}
-                className={styles.input}
-                InputProps={{
-                  endAdornment: (
-                    <InputAdornment position="end">
-                      {el.icon}
-                    </InputAdornment>
-                  ),
-                }}
-                variant="outlined"
-                error={Boolean(errors[el.field as keyof typeof errors])}
-                helperText={errors[el.field as keyof typeof errors] || ""}
-              />
+              <div key={el.placeholder} className="relative">
+                <input
+                  placeholder={el.placeholder}
+                  type={el.field === "password" ? "password" : "text"}
+                  value={
+                    el.field === "email"
+                      ? email
+                      : el.field === "password"
+                        ? password
+                        : username
+                  }
+                  onChange={(e) => handleChange(el.field, e.target.value)}
+                  className={`w-full bg-[#101011] text-white p-3 rounded-md
+                    ${errors[el.field as keyof typeof errors] ? "border border-red-500" : ""}
+                  `}
+                />
+                <div className="absolute right-3 top-3">
+                  {el.icon}
+                </div>
+                {errors[el.field as keyof typeof errors] && (
+                  <p className="text-red-500 text-sm mt-1">
+                    {errors[el.field as keyof typeof errors]}
+                  </p>
+                )}
+              </div>
             ))}
           </div>
+          
           <Button
-            type="submit"
-            variant="contained"
-            className={styles.submitButton}
-          >
-            Login
-          </Button>
+            core="Login"
+            className="bg-white text-[#323232] w-full py-3 rounded-md mt-4 hover:bg-gray-200 transition-colors"
+          />
         </div>
       </form>
     </div>
