@@ -8,11 +8,11 @@ interface Props {
 }
 
 export const ProtectedRoute=({children}:Props)=>{
-    const isAuthenticated:boolean=false
+    const isAuthenticated:boolean=true
     const location = useLocation();
 
     if (!isAuthenticated) {
-        return <Navigate to={ROUTES.authorization} state={{ from: location }} replace />;
+        return <Navigate to={ROUTES.login} state={{ from: location }} replace />;
     }
     return <>{children}</>;
 }
