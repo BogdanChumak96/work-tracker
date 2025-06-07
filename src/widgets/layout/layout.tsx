@@ -1,12 +1,13 @@
 import { useState } from "react";
-import {Header} from "@widgets/layout/header/header";
-import {Sidebar} from "@widgets/layout/sidebar/sidebar";
+import { Header } from "@widgets/layout/header/header";
+import { Sidebar } from "@widgets/layout/sidebar/sidebar";
 
-type Props = {
+
+type LayoutProps = {
     children: React.ReactNode;
 };
 
-export const Layout = ({ children }: Props) => {
+export const Layout = ({ children }: LayoutProps) => {
     const [isSidebarOpen, setIsSidebarOpen] = useState(false);
 
     const toggleSidebar = () => setIsSidebarOpen((prev) => !prev);
@@ -14,8 +15,8 @@ export const Layout = ({ children }: Props) => {
     return (
         <div>
             <Header onMenuClick={toggleSidebar} />
-            <Sidebar isOpen={isSidebarOpen} onClose={toggleSidebar} />
-            <main>{children}</main>
+            <Sidebar isOpen={isSidebarOpen} onClose={() => setIsSidebarOpen(false)} />
+            <main className="">{children}</main>
         </div>
     );
 };

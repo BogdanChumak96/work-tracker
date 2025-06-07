@@ -12,8 +12,15 @@
     z-index: 50;
 }
 
-.open {
+.sidebar.open {
     transform: translateX(0);
+}
+
+.overlay {
+    position: fixed;
+    inset: 0;
+    background-color: rgba(0, 0, 0, 0.4);
+    z-index: 40;
 }
 
 .header {
@@ -21,8 +28,14 @@
     justify-content: space-between;
     align-items: center;
     padding: 1rem;
-    border-bottom: 1px solid #ccc;
+    border-bottom: 1px solid #4b5563;
 }
+
+.header h2 {
+    margin: 0;
+    font-size: 1.25rem;
+}
+
 
 .menu {
     display: flex;
@@ -34,15 +47,32 @@
 .menu a {
     color: white;
     text-decoration: none;
+    padding: 0.5rem;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
 }
 
 .menu a:hover {
     color: #60a5fa;
+    background-color: rgba(255, 255, 255, 0.1);
 }
 
-.overlay {
-    position: fixed;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-    z-index: 40;
+
+.closeButton {
+    background: none;
+    border: none;
+    font-size: 1.5rem;
+    cursor: pointer;
+    color: white;
+    width: 2rem;
+    height: 2rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 0.25rem;
+    transition: background-color 0.2s;
+}
+
+.closeButton:hover {
+    background-color: rgba(255, 255, 255, 0.1);
 }

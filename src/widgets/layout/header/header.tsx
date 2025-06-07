@@ -1,13 +1,16 @@
-import { Menu } from "lucide-react";
-import styles from "./Header.module.css";
+import style from "./Header.module.css";
 
-export const Header = ({ onMenuClick }: { onMenuClick: () => void }) => {
+type HeaderProps = {
+    onMenuClick: () => void;
+};
+
+export const Header = ({ onMenuClick }: HeaderProps) => {
     return (
-        <header className={styles.header}>
-            <button onClick={onMenuClick}>
-                <Menu className="w-6 h-6" />
+        <header className={style.topHeader}>
+            <button onClick={onMenuClick} className={style.menuButton}>
+                ☰
             </button>
-            <h1 className="text-xl font-semibold">App Title</h1>
+            <h1 className={style.title}>My App</h1>
         </header>
     );
 };

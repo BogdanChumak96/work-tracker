@@ -1,28 +1,28 @@
-import { X } from "lucide-react";
-import styles from "./Sidebar.module.css";
+import style from "./Sidebar.module.css";
 
-export const Sidebar = ({
-                            isOpen,
-                            onClose,
-                        }: {
+type SidebarProps = {
     isOpen: boolean;
     onClose: () => void;
-}) => {
+};
+
+export const Sidebar = ({ isOpen, onClose }: SidebarProps) => {
     return (
         <>
-            <aside className={`${styles.sidebar} ${isOpen ? styles.open : ""}`}>
-                <div className={styles.header}>
-                    <h2>Menu</h2>
-                    <button onClick={onClose}>
-                        <X className="w-5 h-5" />
+            <aside className={`${style.sidebar} ${isOpen ? style.open : ""}`}>
+                <div className={style.header}>
+                    <h2 className={style.title}>Menu</h2>
+                    <button onClick={onClose} className={style.closeButton}>
+                        ×
                     </button>
                 </div>
-                <nav className={styles.menu}>
-                    <a href="#" onClick={onClose}>Link 1</a>
-                    <a href="#" onClick={onClose}>Link 2</a>
+                <nav className={style.menu}>
+                    <a href="#" onClick={onClose} className={style.menuItem}>Link 1</a>
+                    <a href="#" onClick={onClose} className={style.menuItem}>Link 2</a>
+                    <a href="#" onClick={onClose} className={style.menuItem}>Link 3</a>
+                    <a href="#" onClick={onClose} className={style.menuItem}>Link 4</a>
                 </nav>
             </aside>
-            {isOpen && <div className={styles.overlay} onClick={onClose} />}
+            {isOpen && <div className={style.overlay} onClick={onClose} />}
         </>
     );
 };
