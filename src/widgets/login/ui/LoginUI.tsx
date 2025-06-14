@@ -4,6 +4,7 @@ import { FaEnvelope, FaLock, FaUser } from "react-icons/fa";
 import { Link } from "@/shared/ui/link";
 import { Title } from "@/shared/ui/title";
 import { ErrorLabel } from "@/shared/ui/error-label";
+import styles from "./LoginUI.module.css";
 
 interface IProps {
   placeholder: string;
@@ -15,17 +16,17 @@ const LoginUI = () => {
   const inputs: IProps[] = [
     {
       placeholder: "Email Address",
-      icon: <FaEnvelope className="text-white" />,
+      icon: <FaEnvelope className={styles.inputIcon} />,
       field: "email",
     },
     {
       placeholder: "Password",
-      icon: <FaLock className="text-white" />,
+      icon: <FaLock className={styles.inputIcon} />,
       field: "password",
     },
     {
       placeholder: "Username",
-      icon: <FaUser className="text-white" />,
+      icon: <FaUser className={styles.inputIcon} />,
       field: "username",
     },
   ];
@@ -79,7 +80,7 @@ const LoginUI = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await fetch("https://dummyjson.com/todos/random");
+        const response = await fetch("https://localhost:3000/api/login", );
         const data = await response.json();
         console.log(data);
       } catch (error) {
@@ -87,24 +88,23 @@ const LoginUI = () => {
       }
     };
     fetchData();
-    // Added dependency array to prevent infinite calls
   }, []);
 
   return (
-    <div className="h-screen w-screen bg-[#101011] flex items-center justify-center p-4">
+    <div className={styles.container}>
       <form onSubmit={handleSubmit}>
-        <div className="bg-[#323232] w-full max-w-[28rem] p-8 rounded-lg flex flex-col items-center gap-6">
-          <div className="text-white text-center">
-            <Title className="text-xl font-medium mb-2" title={"Welcome Back"} />
+        <div className={styles.formCard}>
+          <div className={styles.header}>
+            <Title className={styles.title} title={"Welcome Back"} />
             <p>
               Don't have an account yet?{" "}
-              <Link href="#" title={"Sign up"} className="text-blue-400 hover:text-blue-300" />
+              <Link href="#" title={"Sign up"} className={styles.signupLink} />
             </p>
           </div>
 
-          <div className="flex flex-col gap-4 w-full">
+          <div className={styles.inputContainer}>
             {inputs.map((el) => (
-              <div key={el.placeholder} className="relative">
+              <div key={el.placeholder} className={styles.inputWrapper}>
                 <Input
                   placeholder={el.placeholder}
                   type={el.field === "password" ? "password" : "text"}
@@ -116,15 +116,18 @@ const LoginUI = () => {
                         : username
                   }
                   onChange={(e) => handleChange(el.field, e.target.value)}
-                  className={`w-full bg-[#101011] text-white p-3 rounded-md
-                    ${errors[el.field as keyof typeof errors] ? "border border-red-500" : ""}
-                  `}
+                  className={`${styles.input} ${
+                    errors[el.field as keyof typeof errors] ? styles.inputError : ""
+                  }`}
                 />
-                <div className="absolute right-3 top-3">
+                <div className={styles.inputIcon}>
                   {el.icon}
                 </div>
                 {errors[el.field as keyof typeof errors] && (
-                  <ErrorLabel className="text-red-500 text-sm mt-1" label={errors[el.field as keyof typeof errors]} />
+                  <ErrorLabel 
+                    className={styles.errorText} 
+                    label={errors[el.field as keyof typeof errors]} 
+                  />
                 )}
               </div>
             ))}
@@ -132,7 +135,7 @@ const LoginUI = () => {
 
           <Button
             title="Login"
-            className="bg-white text-[#323232] w-full py-3 rounded-md mt-4 hover:bg-gray-200 transition-colors"
+            className={styles.submitButton}
           />
         </div>
       </form>

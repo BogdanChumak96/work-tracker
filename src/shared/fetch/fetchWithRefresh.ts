@@ -1,6 +1,6 @@
 import axios from "axios";
 
-const API_BASE_URL = import.meta.env.VITE_PUBLIC_API_URL || "https://dummyjson.com/todos/random";
+const API_BASE_URL = import.meta.env.VITE_PUBLIC_API_URL
 
 const apiClient = axios.create({
   baseURL: API_BASE_URL,
