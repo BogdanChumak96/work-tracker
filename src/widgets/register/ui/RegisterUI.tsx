@@ -8,6 +8,7 @@ import { Link } from '@/shared/ui/link';
 import { ErrorLabel } from '@/shared/ui/error-label';
 import { Title } from '@/shared/ui/title';
 import { Subtitle } from '@/shared/ui/subtitle';
+import styles from './RegisterUI.module.css';
 
 export interface IRegister {
     name: string;
@@ -28,88 +29,116 @@ export const RegisterUI = () => {
 
     const handleRegister = async (data: IRegister) => {
         setIsLoading(true);
+        console.log(data);
+
         try {
             await registerUser(data.name, data.email, data.password);
             await sendEmail(data.email);
             setIsConfirmed(true);
         } catch (error) {
-            // Error handling could be added here
+            console.error('Registration error:', error);
         } finally {
             setIsLoading(false);
         }
     };
 
-    const handleClickShowPassword = () => setShowPassword((show) => !show);
+    const handleClickShowPassword = (e: React.MouseEvent) => {
+        e.preventDefault();
+        setShowPassword((show) => !show);
+    };
 
     return (
-        <div className="flex flex-row items-center justify-center w-screen h-screen bg-blue-50">
+        <div className={styles.container}>
             {/* {isConfirmed ? (
-                <ConfirmCom email="" />
+                <ConfirmCom email="" /> // TODO KOSTYA DO THIS FILE
             ) : ( */}
-            <form onSubmit={handleSubmit(handleRegister)} className="w-1/2 h-3/4 flex flex-col justify-center items-center p-10 gap-5 rounded-lg">
-                <div className="flex flex-col items-start gap-2 mb-8">
-                    <Title className="text-4xl text-black" title={"Register your Account"} />
-                    <Subtitle className="text-gray-500" title={'Welcome! Choose register method'} />
-                </div>
-                <div className="w-[410px]">
-                    <Input
-                        {...register("email", { required: "Email is required" })}
-                        className={`w-full p-3 border rounded-md font-bold ${errors.email ? 'border-red-500' : 'border-gray-300'}`}
-                        placeholder="Email"
-                    />
-                    {errors.email && (
-                        <ErrorLabel className="text-red-500 text-sm mt-1" label={errors.email.message} />
-                    )}
-                </div>
+                <form onSubmit={handleSubmit(handleRegister)} className={styles.formSection}>
+                    <div className={styles.headerSection}>
+                        <Title className={styles.title} title={"Register your Account"} />
+                        <Subtitle className={styles.subtitle} title={'Welcome! Choose register method'} />
+                    </div>
 
-                <div className="w-[410px]">
-                    <Input
-                        {...register("name", { required: "Name is required" })}
-                        className={`w-full p-3 border rounded-md font-bold ${errors.name ? 'border-red-500' : 'border-gray-300'}`}
-                        placeholder="Name"
-                    />
-                    {errors.name && (
-                        <ErrorLabel className="text-red-500 text-sm mt-1" label={errors.name.message} />
-                    )}
-                </div>
-
-                <div className="w-[410px]">
-                    <div className="relative">
+                    <div className={styles.inputWrapper}>
                         <Input
-                            {...register("password", {
-                                required: "Password is required",
-                                minLength: {
-                                    value: 6,
-                                    message: "Password must be at least 6 characters"
+                            {...register("email", {
+                                required: "Email is required",
+                                pattern: {
+                                    value: /^[A-Z0-9._%+-]+@[A-Z0-9.-]+\.[A-Z]{2,}$/i,
+                                    message: "Invalid email address"
                                 }
                             })}
-                            type={showPassword ? 'text' : 'password'}
-                            className={`w-full p-3 border rounded-md bg-blue-50 font-bold ${errors.password ? 'border-red-500' : 'border-gray-300'}`}
-                            placeholder="Password"
+                            className={`${styles.input} ${errors.email ? styles.inputError : ''}`}
+                            placeholder="Email"
+                            type="email"
                         />
-                        <Button
-                            onClick={handleClickShowPassword}
-                            className="absolute right-3 top-3 text-gray-500"
-                            title={showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
-                        />
+                        {errors.email && (
+                            <ErrorLabel className={styles.errorText} label={errors.email.message || ''} />
+                        )}
                     </div>
-                    {errors.password && (
-                        <ErrorLabel className="text-red-500 text-sm mt-1" label={errors.password.message || ''} />
-                    )}
-                </div>
 
-                <div className="flex justify-center items-center w-full">
-                    <Link href="/login" title={"Already have an account?"} className="text-blue-600 hover:text-blue-800 hover:underline" />
-                </div>
+                    <div className={styles.inputWrapper}>
+                        <Input
+                            {...register("name", {
+                                required: "Name is required",
+                                minLength: {
+                                    value: 2,
+                                    message: "Name must be at least 2 characters"
+                                }
+                            })}
+                            className={`${styles.input} ${errors.name ? styles.inputError : ''}`}
+                            placeholder="Name"
+                            type="text"
+                        />
+                        {errors.name && (
+                            <ErrorLabel className={styles.errorText} label={errors.name.message || ''} />
+                        )}
+                    </div>
 
-                <Button
-                    title={isLoading ? "Loading..." : "Register"}
-                    onClick={() => { }}
-                    className="w-[410px] h-[50px] font-bold bg-blue-600 text-white rounded-md hover:bg-blue-700 transition-colors"
-                />
-            </form>
+                    <div className={styles.inputWrapper}>
+                        <div className={styles.passwordWrapper}>
+                            <Input
+                                {...register("password", {
+                                    required: "Password is required",
+                                    minLength: {
+                                        value: 6,
+                                        message: "Password must be at least 6 characters"
+                                    },
+                                    pattern: {
+                                        value: /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d@$!%*?&]{6,}$/,
+                                        message: "Password must contain at least one uppercase letter, one lowercase letter, and one number"
+                                    }
+                                })}
+                                type={showPassword ? 'text' : 'password'}
+                                className={`${styles.input} ${errors.password ? styles.inputError : ''}`}
+                                placeholder="Password"
+                            />
+                            <button
+                                type="button"
+                                onClick={handleClickShowPassword}
+                                className={styles.passwordToggle}
+                                aria-label={showPassword ? "Hide password" : "Show password"}
+                            >
+                                {showPassword ? <FaEyeSlash size={20} /> : <FaEye size={20} />}
+                            </button>
+                        </div>
+                        {errors.password && (
+                            <ErrorLabel className={styles.errorText} label={errors.password.message || ''} />
+                        )}
+                    </div>
+
+                    <div className={styles.linkWrapper}>
+                        <Link href="/login" title={"Already have an account?"} className={styles.loginLink} />
+                    </div>
+
+                    <button
+                        type="submit"
+                        disabled={isLoading}
+                        className={styles.submitButton}
+                    >
+                        {isLoading ? "Loading..." : "Register"}
+                    </button>
+                </form>
             {/* )} */}
-            <div className="w-1/2 h-screen flex justify-center items-center bg-blue-600" />
         </div>
     );
-}
+};
