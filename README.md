@@ -1,4 +1,5 @@
-# React + TypeScript + Vite
+// branch rule
+// create-features-login
 
 #TETETETE
 
